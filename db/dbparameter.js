@@ -4,4 +4,4 @@ const dbname = "storyteller";
 module.exports = {
   url: url,
   dbname: dbname
-}
+};
