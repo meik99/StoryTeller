@@ -4,9 +4,6 @@ var GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 module.exports = function(){
   passport.use(new GoogleStrategy({
-    clientID: "247770173113-ffpvo1q7kvm44smhhbo5c3e4hf1qvq5l.apps.googleusercontent.com",
-    clientSecret: "3o286VX92magJYQd2f-SqxV-",
-    callbackURL: "http://localhost:3000/login/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb){
     User.findOrCreate(profile.id, function(result){
