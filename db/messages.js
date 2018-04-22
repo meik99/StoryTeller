@@ -14,10 +14,10 @@ class MessageDAO {
         });
     }
 
-    insert(title, messages, cb) {
+    insert(story, cb) {
         this.connect(function (db) {
             db.collection("messages")
-                .insertOne({title: title, messages: messages}, (err, result) => {
+                .insertOne(story, (err, result) => {
                     if (err) console.log(err);
                     cb(result.ops[0]);
                 });
@@ -27,7 +27,7 @@ class MessageDAO {
     select(cb) {
         this.connect((db) => {
             db.collection("messages")
-                .find({}, (err, result) => {
+                .find({}).toArray((err, result) => {
                     if (err) console.log(err);
                     cb(result);
                 });

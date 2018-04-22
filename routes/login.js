@@ -1,30 +1,28 @@
 var express = require("express");
 var passport = require("passport");
 var router = express.Router();
-
-
-
+var credentials = require("../authentication/credentials.js");
 
 router.get("/", (res, req, next) => {
-  if(!req.user){
-      return next();
-  }
-  else
-    res.redirect("/story");
-},
-passport.authenticate('google', { scope: ['profile'] }));
+      if(!req.user){
+          return next();
+      }
+      else
+        res.redirect("/");
+    },
+    passport.authenticate('google', { scope: ['profile'] }));
 
 router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login/failure' }),
+  passport.authenticate('google', { failureRedirect: '/failure' }),
   function(req, res) {
-    if(req.user.profileId != "102815722004622822395")
+    if(req.isAuthenticated())
       res.redirect("/");
     else
-      res.redirect("/story");
+      res.redirect("/failure");
 });
 
 router.get("/failure", function(req, res){
-  res.redirect("/");
+  res.send("Not a valid user");
 });
 
 module.exports = router;
